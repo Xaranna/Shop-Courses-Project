@@ -1,0 +1,43 @@
+{% if cart %}
+<div class="col-md-4 order-md-2 mb-4">
+    <h4 class="d-flex justify-content-between align-items-center mb-3">
+        <span class="text-muted">Your cart</span>
+        <span class="badge badge-secondary badge-pill bg-danger">{{ cart.total_quantity }}</span>
+    </h4>
+
+    {% for item in cart %}
+    <ul class="list-group mb-3">
+        <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div class="col-lg-6 ">
+                <h6 class="my-0 ">{{ item.course.title }}</h6>
+                <small class="text-muted">{{ item.course.category }}</small>
+                <div class="input-group input-group-sm mb-1">
+                    <span class="input-group-text" id="inputGroup-sizing-sm" >Quantity</span>
+                    <input type="text" class="form-control" aria-label="Sizing example input"
+                           aria-describedby="inputGroup-sizing-sm" value="{{item.quantity}}" readonly>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between">
+                <span class="text-muted  align-self-baseline p-2">{{ item.sum }}$</span>
+                <a href="{% url 'shop:cart_remove' item.id %}" class="btn btn-outline-danger btn-sm align-self-baseline"
+                   style="height: 30px;">x</a>
+            </div>
+
+        </li>
+
+        {% endfor %}
+
+        <li class="list-group-item d-flex justify-content-between">
+            <span><strong>Total:</strong></span>
+            <strong>{{ cart.total_sum }}$</strong>
+        </li>
+    </ul>
+</div>
+{% else %}
+<div class="col-md-3 order-md-2 mb-4">
+    <h4 class="d-flex justify-content-between align-items-center mb-3">
+        <span class="text-muted">Your cart is empty</span>
+    </h4>
+</div>
+{% endif %}
+
